@@ -1,4 +1,4 @@
-let xp = 0;
+let xp = 0; // 1.基础数值
 let health = 100;
 let gold = 50;
 let currentWeapon = 0;
@@ -6,6 +6,7 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
+// 2.使用频繁的对象变量通过DOM操作获取
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -16,6 +17,8 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+
+// 3.更复杂的变量
 const weapons = [
   { name: "stick", power: 5 },
   { name: "dagger", power: 30 },
@@ -70,12 +73,8 @@ const locations = [
   },
   {
     name: "kill monster",
-    "button text": [
-      "Go to town square",
-      "Go to town square",
-      "Go to town square",
-    ],
-    "button functions": [goTown, goTown, goTown],
+    "button text": ["Go to town square", "Go to town square", "Easter Egg!"],
+    "button functions": [goTown, goTown, easterEgg],
     text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
   },
   {
@@ -86,7 +85,7 @@ const locations = [
   },
   {
     name: "win",
-    "button text": ["REPLAY?", "REPLAY?", "Easter Egg!?"],
+    "button text": ["REPLAY?", "REPLAY?", "Easter Egg!"],
     "button functions": [restart, restart, easterEgg],
     text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;",
   },
@@ -98,11 +97,13 @@ const locations = [
   },
 ];
 
-// initialize buttons
+// 4.绑定按钮的点击操作
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
+// 5.各种函数
+// 5.1 刷新地图
 function update(location) {
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
@@ -126,6 +127,7 @@ function goCave() {
   update(locations[2]);
 }
 
+// 5.2 装备与武器
 function buyHealth() {
   if (gold >= 10) {
     gold -= 10;
@@ -169,6 +171,7 @@ function sellWeapon() {
   }
 }
 
+// 5.3 开打
 function fightSlime() {
   fighting = 0;
   goFight();
@@ -187,7 +190,7 @@ function fightDragon() {
 function goFight() {
   update(locations[3]);
   monsterHealth = monsters[fighting].health;
-  monsterStats.style.display = "block";
+  monsterStats.style.display = "block"; // 现身
   monsterName.innerText = monsters[fighting].name;
   monsterHealthText.innerText = monsterHealth;
 }
@@ -214,15 +217,16 @@ function attack() {
       defeatMonster();
     }
   }
+  // 武器损失
   if (Math.random() <= 0.1 && inventory.length !== 1) {
     text.innerText += " Your " + inventory.pop() + " breaks.";
     currentWeapon--;
   }
 }
 
+// 5.4 数值生成
 function getMonsterAttackValue(level) {
   const hit = level * 5 - Math.floor(Math.random() * xp);
-  console.log(hit);
   return hit > 0 ? hit : 0;
 }
 
@@ -242,6 +246,7 @@ function defeatMonster() {
   update(locations[4]);
 }
 
+// 5.5 结算
 function lose() {
   update(locations[5]);
 }
@@ -262,6 +267,7 @@ function restart() {
   goTown();
 }
 
+// 5.6 彩蛋
 function easterEgg() {
   update(locations[7]);
 }
