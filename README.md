@@ -15,3 +15,18 @@ const isPalindrome = (text) => {
   else return false;
 };
 ```
+
+# 2. Recursion
+
+```javascript
+// 递归
+const decimalToBinary = (input) => {
+  if (input === 0 || input === 1) {
+    // 终止条件
+    return String(input);
+  } else {
+    // 继续
+    return decimalToBinary(Math.floor(input / 2)) + (input % 2);
+  }
+};
+```
