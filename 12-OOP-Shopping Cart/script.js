@@ -85,6 +85,7 @@ const products = [
   },
 ];
 
+//  解构对象
 products.forEach(({ name, id, price, category }) => {
   dessertCards.innerHTML += `
       <div class="dessert-card">
@@ -99,7 +100,9 @@ products.forEach(({ name, id, price, category }) => {
     `;
 });
 
+// 面向对象
 class ShoppingCart {
+  // 构造函数
   constructor() {
     this.items = [];
     this.total = 0;
@@ -175,8 +178,9 @@ class ShoppingCart {
 }
 
 const cart = new ShoppingCart();
+// 获取所有的按钮
 const addToCartBtns = document.getElementsByClassName("add-to-cart-btn");
-
+// 都添加监听事件
 [...addToCartBtns].forEach((btn) => {
   btn.addEventListener("click", (event) => {
     cart.addItem(Number(event.target.id), products);
@@ -185,8 +189,12 @@ const addToCartBtns = document.getElementsByClassName("add-to-cart-btn");
   });
 });
 
+// 切换显示
 cartBtn.addEventListener("click", () => {
   isCartShowing = !isCartShowing;
   showHideCartSpan.textContent = isCartShowing ? "Hide" : "Show";
   cartContainer.style.display = isCartShowing ? "block" : "none";
 });
+
+// 清空
+clearCartBtn.addEventListener("click", cart.clearCart.bind(cart));
